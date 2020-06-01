@@ -18,6 +18,8 @@ namespace CoelotDemo
 {
     public class Startup
     {
+        private const string authenticationProviderKey = "TestKey";
+
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -29,9 +31,16 @@ namespace CoelotDemo
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddOcelot(Configuration)
-                    //.AddConsul()
-                    //.AddConfigStoredInConsul()
+                    .AddConsul()
+            //.AddConfigStoredInConsul()
             ;
+
+            var authenticationProviderKey = "TestKey";
+
+            services.AddAuthentication()
+                .AddJwtBearer(authenticationProviderKey, x =>
+                {
+                });
 
             services.AddControllers();
         }
